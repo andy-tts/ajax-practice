@@ -1,0 +1,29 @@
+<h1>Here are your posts, via AJAX!</h1>
+
+<div id="posts">
+</div>
+<p>
+	<a id="get-post-button" href="javascript:loadPosts();">Refresh posts</a>
+</p>
+
+<script type="text/javascript">
+	function loadPosts() {		
+		var html = "";
+		$.getJSON('/posts.json', function(data){
+			console.log("Request is complete!");
+			console.log(data);
+			// data = [{"id": 2, "content": "foo"}]
+			$.each(data, function(fizzbar){
+				html += "<p>" + data[fizzbar].content + "</p>";
+			});
+			$("#posts").html(html);
+		});
+		
+	}
+
+	$(window).on('load', function() {
+	    console.log( "ready!" );
+	    loadPosts();
+	});
+	// $("#get-post-button").click(loadPosts);
+</script>
