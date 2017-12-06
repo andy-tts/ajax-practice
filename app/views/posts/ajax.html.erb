@@ -2,6 +2,12 @@
 
 <div id="posts">
 </div>
+
+<div id="new-post-form">
+	<input type="text" id="post-content" />
+	<button id="add-post">Add new Post!</button>
+</div>
+
 <p>
 	<a id="get-post-button" href="javascript:loadPosts();">Refresh posts</a>
 </p>
@@ -17,9 +23,19 @@
 				html += "<p>" + data[fizzbar].content + "</p>";
 			});
 			$("#posts").html(html);
-		});
-		
+		});		
 	}
+
+	function createPost() {
+		var postContentValue = $("#post-content").val();
+		$.post('/posts.json', { post: { content: postContentValue }});
+		$("#post-content").val('');
+	}
+
+	$('#add-post').click(function(){
+		console.log("New Post!");
+		createPost();
+	});
 
 	$(window).on('load', function() {
 	    console.log( "ready!" );
