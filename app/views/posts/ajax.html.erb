@@ -1,7 +1,11 @@
 <h1>Here are your posts, via Ajax!</h1>
 
 <div id="posts">
-	
+</div>
+
+<div id+"new-post-for">
+	<input type="text" id="post-content" />
+	<button id="add-post">Add New Post!</button>
 </div>
 <p>
 	<a id="get-post-button" href="javascript:loadPosts();">Refresh posts</a>	
@@ -20,6 +24,18 @@
 			$("#posts").html(html);
 		});
 	}
+
+		function createPost() {
+			var postContentValue = $("#post-content").val();
+			$.post('/posts.json', {post: { content: postContentValue
+			}});
+		}
+
+		$('#add-post').click(function() {
+			console.log("New Post");
+			createPost();
+		});
+
 		$(window).on('load', function() {
 			console.log("ready!!");
 			loadPosts();
